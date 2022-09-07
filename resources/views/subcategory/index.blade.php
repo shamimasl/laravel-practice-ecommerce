@@ -48,7 +48,8 @@
                                                     <td>
                                                         <a href="{{ url('subcategory/delete') }}/{{ $category->id }}"
                                                             class="btn btn-danger btn-sm">Delete</a>
-                                                        <a href="" class="btn btn-warning btn-sm">Edit</a>
+                                                        <a href="{{ url('subcategory/edit') }}/{{ $category->id }}"
+                                                            class="btn btn-warning btn-sm">Edit</a>
                                                     </td>
                                                 </tr>
                                             @empty
@@ -69,7 +70,7 @@
                                 {{-- @foreach ($categories as $category)
                                 {{ $category->category_name }}<br>
                             @endforeach --}}
-                                {{ $subcategories->links() }}
+                                {{ $subcategories->appends(['deleted_sub_categories' => $deleted_sub_categories->currentPage()])->links() }}
 
                             </div>
                         </div>
@@ -122,7 +123,8 @@
                                 {{-- @foreach ($categories as $category)
                                 {{ $category->category_name }}<br>
                             @endforeach --}}
-                                {{ $deleted_sub_categories->links() }}
+                                {{-- {{ $deleted_sub_categories->links() }} --}}
+                                {{ $deleted_sub_categories->appends(['subcategories' => $subcategories->currentPage()])->links() }}
 
                             </div>
                         </div>

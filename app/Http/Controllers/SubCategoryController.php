@@ -22,7 +22,7 @@ class SubCategoryController extends Controller
             'category_id' => 'required',
             'sub_category_name' => 'required'
         ]);
-        if (Subcategory::where('category_id', $request->category_id)->where('sub_category_name', $request->sub_category_name)->exists()) {
+        if (Subcategory::withTrashed()->where('category_id', $request->category_id)->where('sub_category_name', $request->sub_category_name)->exists()) {
             return back()->with('error_status', 'Already Exists');
         } else {
             Subcategory::insert([
@@ -61,6 +61,21 @@ class SubCategoryController extends Controller
     public function alldelete()
     {
         Subcategory::whereNotNull('id')->delete();
+        return back();
+    }
+    public function edit($id)
+    {
+        return view('subcategory.edit', [
+            'categories' => Category::all(),
+            'subcategory_info' => Subcategory::find($id)
+        ]);
+    }
+    public function update(Request $request)
+    {
+        Subcategory::find($request->sub_category_id)->update([
+            'category_id' => $request->category_id,
+            'sub_category_name' => $request->sub_category_name
+        ]);
         return back();
     }
 }

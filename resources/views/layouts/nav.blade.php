@@ -27,6 +27,12 @@
                 <span class="menu-item-label">Sub Category</span>
             </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
+        <a href="{{ url('product') }}" class="sl-menu-link @yield('product')">
+            <div class="sl-menu-item">
+                <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
+                <span class="menu-item-label">Product</span>
+            </div><!-- menu-item -->
+        </a><!-- sl-menu-link -->
 
     </div><!-- sl-sideleft-menu -->
 
@@ -46,13 +52,14 @@
         <nav class="nav">
             <div class="dropdown">
                 <a href="" class="nav-link nav-link-profile" data-toggle="dropdown">
-                    <span class="logged-name">Jane<span class="hidden-md-down"> Doe</span></span>
-                    <img src="https://thumbs.dreamstime.com/b/businessman-icon-image-male-avatar-profile-vector-glasses-beard-hairstyle-179728610.jpg"
+                    <span class="logged-name">{{ Auth::user()->name }}<span class="hidden-md-down"> </span></span>
+                    <img src="{{ asset('uploads/profile_photos') }}/{{ Auth::user()->profile_photo }}"
                         class="wd-32 rounded-circle" alt="">
                 </a>
                 <div class="dropdown-menu dropdown-menu-header wd-200">
                     <ul class="list-unstyled user-profile-nav">
-                        <li><a href=""><i class="icon ion-ios-person-outline"></i> Edit Profile</a></li>
+                        <li><a href="{{ url('profile') }}"><i class="icon ion-ios-person-outline"></i> Edit Profile</a>
+                        </li>
 
                         <li><a href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
