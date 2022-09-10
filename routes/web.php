@@ -17,13 +17,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::get('about', [FrontendController::class, 'about']);
 Route::get('contact', [FrontendController::class, 'contact']);
 Route::get('protfolio', [FrontendController::class, 'protfolio']);
+Route::get('/', [FrontendController::class, 'index']);
+Route::get('/product/details/{id}', [FrontendController::class, 'product_details']);
 
 Auth::routes();
 
@@ -45,3 +47,4 @@ Route::post('/profile/name/change', [ProfileController::class, 'namechange']);
 Route::post('/profile/password/change', [ProfileController::class, 'passwordchange']);
 Route::post('/profile/photo/change', [ProfileController::class, 'photochange']);
 Route::get('/product', [ProductController::class, 'index']);
+Route::post('/product/insert', [ProductController::class, 'insert']);

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Subcategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -35,6 +36,9 @@ class CategoryController extends Controller
     public function delete($id)
     {
         Category::find($id)->delete();
+        Subcategory::where([
+            'category_id' => $id
+        ])->forceDelete();
         return back();
     }
 }
