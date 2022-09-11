@@ -36,4 +36,18 @@ class FrontendController extends Controller
     {
         return view('protfolio');
     }
+    public function shop()
+    {
+        return view('shop', [
+            'all_products' => Product::all(),
+            'categories' => Category::all()
+        ]);
+    }
+    public function shop_category($category_id)
+    {
+        return view('shop_category', [
+            'category_name' => Category::find($category_id)->category_name,
+            'all_products' => Product::where('category_id', $category_id)->get(),
+        ]);
+    }
 }

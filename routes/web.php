@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -26,6 +27,8 @@ Route::get('contact', [FrontendController::class, 'contact']);
 Route::get('protfolio', [FrontendController::class, 'protfolio']);
 Route::get('/', [FrontendController::class, 'index']);
 Route::get('/product/details/{id}', [FrontendController::class, 'product_details']);
+Route::get('/shop', [FrontendController::class, 'shop']);
+Route::get('/shop/category/{category_id}', [FrontendController::class, 'shop_category']);
 
 Auth::routes();
 
@@ -48,3 +51,4 @@ Route::post('/profile/password/change', [ProfileController::class, 'passwordchan
 Route::post('/profile/photo/change', [ProfileController::class, 'photochange']);
 Route::get('/product', [ProductController::class, 'index']);
 Route::post('/product/insert', [ProductController::class, 'insert']);
+Route::post('/add/to/cart', [CartController::class, 'addtocart']);

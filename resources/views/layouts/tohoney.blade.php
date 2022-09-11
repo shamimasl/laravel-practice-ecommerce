@@ -98,8 +98,8 @@
                         <nav class="mainmenu">
                             <ul class="d-flex">
                                 <li class="active"><a href="{{ url('/') }}">Home</a></li>
-                                <li><a href="{{ url('about') }}">About</a></li>
-                                <li>
+                                <li><a href="{{ url('shop') }}">Shop</a></li>
+                                {{-- <li>
                                     <a href="javascript:void(0);">Shop <i class="fa fa-angle-down"></i></a>
                                     <ul class="dropdown_style">
                                         <li><a href="shop.html">Shop Page</a></li>
@@ -108,7 +108,7 @@
                                         <li><a href="checkout.html">Checkout</a></li>
                                         <li><a href="wishlist.html">Wishlist</a></li>
                                     </ul>
-                                </li>
+                                </li> --}}
                                 <li>
                                     <a href="javascript:void(0);">Pages <i class="fa fa-angle-down"></i></a>
                                     <ul class="dropdown_style">
@@ -133,8 +133,8 @@
                     </div>
                     <div class="col-md-4 col-lg-2 col-sm-5 col-4">
                         <ul class="search-cart-wrapper d-flex">
-                            <li class="search-tigger"><a href="javascript:void(0);"><i
-                                        class="flaticon-search"></i></a></li>
+                            <li class="search-tigger"><a href="javascript:void(0);"><i class="flaticon-search"></i></a>
+                            </li>
                             <li>
                                 <a href="javascript:void(0);"><i class="flaticon-like"></i> <span>2</span></a>
                                 <ul class="cart-wrap dropdown_style">

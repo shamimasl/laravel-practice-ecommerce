@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Product_thumbnail_photo;
 use App\Models\Subcategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -23,6 +24,9 @@ class ProductController extends Controller
     }
     public function insert(Request $request)
     {
+
+
+
         // print_r($request->all());
         $product_id = Product::insertGetId([
             'category_id' => $request->category_id,
@@ -43,6 +47,20 @@ class ProductController extends Controller
         Product::find($product_id)->update([
             'product_photo' => $photo_name,
         ]);
+
+        $start = 1;
+        foreach ($request->file('product_thumbnail_photos') as $single_product_thumbnail_photo) {
+
+
+            $single_product_thumbnail_photo_name = $product_id . "-" . $start . "." . $single_product_thumbnail_photo->getClientOriginalExtension();
+            Image::make($single_product_thumbnail_photo)->save(base_path('public/uploads/product_thumbnail_photos/' . $single_product_thumbnail_photo_name));
+            $start++;
+            Product_thumbnail_photo::insert([
+                'product_id' => $product_id,
+                'product_thumbnail_photo_name' => $single_product_thumbnail_photo_name,
+                'created_at' => Carbon::now(),
+            ]);
+        }
 
 
         return back();

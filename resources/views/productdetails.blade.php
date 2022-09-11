@@ -20,53 +20,33 @@
     <div class="single-product-area ptb-100">
         <div class="container">
             <div class="row">
+
                 <div class="col-lg-6">
                     <div class="product-single-img">
                         <div class="product-active owl-carousel">
-                            <div class="item">
-                                <img src="{{ asset(' assets/images/product/product-details/1.jpg') }}" alt="">
-                            </div>
-                            <div class="item">
-                                <img src="{{ asset('assets/images/product/product-details/2.jpg') }}" alt="">
-                            </div>
-                            <div class="item">
-                                <img src="{{ asset('assets/images/product/product-details/3.jpg') }}" alt="">
-                            </div>
-                            <div class="item">
-                                <img src="{{ asset('assets/images/product/product-details/4.jpg') }}" alt="">
-                            </div>
-                            <div class="item">
-                                <img src="{{ asset('assets/images/product/product-details/5.jpg') }}" alt="">
-                            </div>
-                            <div class="item">
-                                <img src="{{ asset('assets/images/product/product-details/6.jpg') }}" alt="">
-                            </div>
+                            @foreach (App\Models\Product_thumbnail_photo::where('product_id', $product_info->id)->get() as $single_product_thumbnail_photo)
+                                <div class="item">
+                                    <img src=" {{ asset('uploads/product_thumbnail_photos') }}/{{ $single_product_thumbnail_photo->product_thumbnail_photo_name }}"
+                                        alt="">
+                                </div>
+                            @endforeach
+
+
                         </div>
                         <div class="product-thumbnil-active  owl-carousel">
-                            <div class="item">
-                                <img src="{{ asset('assets/images/product/product-details/1.jpg') }}" alt="">
-                            </div>
-                            <div class="item">
-                                <img src="{{ asset('assets/images/product/product-details/2.jpg') }}" alt="">
-                            </div>
-                            <div class="item">
-                                <img src="{{ asset('assets/images/product/product-details/3.jpg') }}" alt="">
-                            </div>
-                            <div class="item">
-                                <img src="{{ asset('assets/images/product/product-details/4.jpg') }}" alt="">
-                            </div>
-                            <div class="item">
-                                <img src="{{ asset('assets/images/product/product-details/5.jpg') }}" alt="">
-                            </div>
-                            <div class="item">
-                                <img src="{{ asset('assets/images/product/product-details/6.jpg') }}" alt="">
-                            </div>
+                            @foreach (App\Models\Product_thumbnail_photo::where('product_id', $product_info->id)->get() as $single_product_thumbnail_photo)
+                                <div class="item">
+                                    <img src=" {{ asset('uploads/product_thumbnail_photos') }}/{{ $single_product_thumbnail_photo->product_thumbnail_photo_name }}"
+                                        alt="">
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="product-single-content">
                         <h3>{{ $product_info->product_name }}</h3>
+                        <h6 class="text-success">Available In Stock: {{ $product_info->product_quantity }}</h6>
                         <div class="rating-wrap fix">
                             <span class="pull-left">{{ $product_info->product_price }}</span>
                             <ul class="rating pull-right">
@@ -79,12 +59,21 @@
                             </ul>
                         </div>
                         <p>{{ $product_info->product_description }}</p>
-                        <ul class="input-style">
-                            <li class="quantity cart-plus-minus">
-                                <input type="text" value="1" />
-                            </li>
-                            <li><a href="cart.html">Add to Cart</a></li>
-                        </ul>
+                        @if ($product_info->product_quantity > 0)
+                            <form action="{{ url('add/to/cart') }}" method="POST">
+                                @csrf
+                                <ul class="input-style">
+                                    <li class="quantity cart-plus-minus">
+                                        <input type="text" value="1" />
+                                    </li>
+                                    <li><button type="submit" class="btn btn-danger">Add to Cart</button></li>
+                                </ul>
+                            @else
+                                <div class="alert alert-danger">
+                                    This Product is Out of Stock
+                                </div>
+                        @endif
+                        </form>
                         <ul class="cetagory">
                             <li>Categories:</li>
                             <li><a href="#">{{ App\Models\Category::find($product_info->category_id)->category_name }}
@@ -94,11 +83,15 @@
                         </ul>
                         <ul class="socil-icon">
                             <li>Share :</li>
-                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                            <li><a target="_blank"
+                                    href="http://www.facebook.com/sharer/sharer.php?u={{ url()->full() }}"><i
+                                        class="fa fa-facebook"></i></a></li>
+                            <li><a target="_blank" href="http://www.twitter.com/intent/tweet?url={{ url()->full() }}"><i
+                                        class="fa fa-twitter"></i></a>
+                            </li>
+                            {{-- <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
                             <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                            <li><a href="#"><i class="fa fa-google-plus"></i></a></li> --}}
                         </ul>
                     </div>
                 </div>
@@ -125,8 +118,8 @@
                             <div class="faq-wrap" id="accordion">
                                 <div class="card">
                                     <div class="card-header" id="headingOne">
-                                        <h5><button data-toggle="collapse" data-target="#collapseOne"
-                                                aria-expanded="true" aria-controls="collapseOne">General Inquiries
+                                        <h5><button data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                                                aria-controls="collapseOne">General Inquiries
                                                 ?</button> </h5>
                                     </div>
                                     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
