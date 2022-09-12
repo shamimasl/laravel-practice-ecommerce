@@ -45,6 +45,11 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="product-single-content">
+                        @if (session('cart_success'))
+                            <div class="alert alert-success">
+                                {{ session('cart_success') }}
+                            </div>
+                        @endif
                         <h3>{{ $product_info->product_name }}</h3>
                         <h6 class="text-success">Available In Stock: {{ $product_info->product_quantity }}</h6>
                         <div class="rating-wrap fix">
@@ -62,9 +67,11 @@
                         @if ($product_info->product_quantity > 0)
                             <form action="{{ url('add/to/cart') }}" method="POST">
                                 @csrf
+                                <input type="hidden" value="{{ $product_info->id }}" name="product_id">
                                 <ul class="input-style">
                                     <li class="quantity cart-plus-minus">
-                                        <input type="text" value="1" />
+
+                                        <input type="text" value="1" name="cart_amount" />
                                     </li>
                                     <li><button type="submit" class="btn btn-danger">Add to Cart</button></li>
                                 </ul>

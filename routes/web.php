@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -52,3 +53,8 @@ Route::post('/profile/photo/change', [ProfileController::class, 'photochange']);
 Route::get('/product', [ProductController::class, 'index']);
 Route::post('/product/insert', [ProductController::class, 'insert']);
 Route::post('/add/to/cart', [CartController::class, 'addtocart']);
+Route::get('/cart/delete/{cart_id}', [CartController::class, 'cartdelete']);
+Route::get('/cart', [CartController::class, 'cart']);
+Route::post('update/cart', [CartController::class, 'updatecart']);
+Route::get('/coupon', [CouponController::class, 'index']);
+Route::post('/coupon/insert', [CouponController::class, 'insert'])->name('couponinsert');
