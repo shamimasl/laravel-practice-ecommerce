@@ -14,6 +14,10 @@ use Intervention\Image\Facades\Image;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('admincheck');
+    }
     public function index()
     {
         return view('product.index', [

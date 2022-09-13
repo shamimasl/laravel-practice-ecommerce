@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Coupon;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -38,9 +39,26 @@ class CartController extends Controller
         Cart::find($cart_id)->forceDelete();
         return back();
     }
-    public function cart()
+    public function cart($coupon_name = "")
     {
+        if ($coupon_name == "") {
+            $discount = 0;
+        } else {
+            if (Coupon::where('coupon_name', $coupon_name)->exists()) {
+                if (Carbon::now()->format('y-m-d') < Coupon::where('coupon_name', $coupon_name)->first()->coupon_validity_till) {
+
+                    return back()->with('coupon_error', 'This coupon has expired');
+                } else {
+                    $discount =  Coupon::where('coupon_name', $coupon_name)->first()->coupon_discount_amount;
+                }
+            } else {
+                return back()->with('coupon_error', 'This coupon does not exist');
+            }
+        }
+
         return view('cart', [
+            'coupon_name' => $coupon_name,
+            'discount' => $discount,
             'cart_items' => Cart::where('generated_cart_id', Cookie::get('generated_cart_id'))->get(),
         ]);
     }
@@ -52,5 +70,9 @@ class CartController extends Controller
             ]);
         }
         return back();
+    }
+    public function checkout()
+    {
+        return view('checkout');
     }
 }

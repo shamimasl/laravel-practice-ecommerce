@@ -22,6 +22,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
+                    @if (session('coupon_error'))
+                        <div class="alert alert-danger">
+                            {{ session('coupon_error') }}
+                        </div>
+                    @endif
 
                     <table class="table-responsive cart-wrap">
                         <thead>
@@ -95,11 +100,12 @@
                                     </form>
                                     <li><a href="{{ url('shop') }}">Continue Shopping</a></li>
                                 </ul>
-                                <h3>Cupon</h3>
-                                <p>Enter Your Cupon Code if You Have One</p>
+                                <h3>Coupon</h3>
+                                <p>Enter Your Coupon Code if You Have One</p>
                                 <div class="cupon-wrap">
-                                    <input type="text" placeholder="Cupon Code">
-                                    <button>Apply Cupon</button>
+                                    <input type="text" id="apply_coupon_field" placeholder="Cupon Code"
+                                        value="{{ $coupon_name }}">
+                                    <button id="apply_coupon_btn">Apply Coupon</button>
                                 </div>
                             </div>
                         </div>
@@ -108,11 +114,14 @@
                                 <h3>Cart Totals</h3>
                                 <ul>
                                     <li><span class="pull-left">Total</span>{{ $total }}</li>
-                                    <li><span class="pull-left">Discount</span>$380.00</li>
-                                    <li><span class="pull-left">Subtotal</span> $380.00</li>
+                                    <li><span class="pull-left">Discount:
+                                            {{ $discount }}%</span>-{{ round(($discount / 100) * $total) }}</li>
+                                    <li><span class="pull-left">Subtotal</span>
+                                        {{ round($total - ($discount / 100) * $total) }}
+                                    </li>
                                 </ul>
                                 @if ($check_out_button)
-                                    <a href="checkout.html">Proceed to Checkout</a>
+                                    <a href="{{ url('checkout') }}">Proceed to Checkout</a>
                                 @else
                                     <a href="#">Check Stock Out Product</a>
                                 @endif
@@ -143,4 +152,16 @@
                 </div>
             </div>
         </div>
+    @endsection
+    @section('footer_script')
+        <script>
+            $(document).ready(function() {
+                $('#apply_coupon_btn').click(function() {
+                    var current_link = "{{ url('cart') }}";
+                    var link_to_go = current_link + "/" + $('#apply_coupon_field').val();
+                    window.location.href = link_to_go;
+                });
+
+            });
+        </script>
     @endsection

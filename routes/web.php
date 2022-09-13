@@ -34,6 +34,7 @@ Route::get('/shop/category/{category_id}', [FrontendController::class, 'shop_cat
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::post('/user/insert', [App\Http\Controllers\HomeController::class, 'userinsert'])->name('userinsert');
 Route::get('/category', [App\Http\Controllers\CategoryController::class, 'index']);
 Route::post('/category/insert', [App\Http\Controllers\CategoryController::class, 'insert']);
 Route::get('/category/delete/{id}', [App\Http\Controllers\CategoryController::class, 'delete']);
@@ -55,6 +56,8 @@ Route::post('/product/insert', [ProductController::class, 'insert']);
 Route::post('/add/to/cart', [CartController::class, 'addtocart']);
 Route::get('/cart/delete/{cart_id}', [CartController::class, 'cartdelete']);
 Route::get('/cart', [CartController::class, 'cart']);
+Route::get('/checkout', [CartController::class, 'checkout']);
+Route::get('/cart/{coupon_name}', [CartController::class, 'cart']);
 Route::post('update/cart', [CartController::class, 'updatecart']);
 Route::get('/coupon', [CouponController::class, 'index']);
 Route::post('/coupon/insert', [CouponController::class, 'insert'])->name('couponinsert');

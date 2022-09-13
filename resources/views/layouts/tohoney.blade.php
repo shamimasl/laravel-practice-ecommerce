@@ -474,6 +474,8 @@
     <script src="{{ asset('assets/js/jquery-ui.min.js') }}"></script>
     <!-- main js -->
     <script src="{{ asset('assets/js/scripts.js') }}"></script>
+    @yield('footer_script')
+
 </body>
 
 

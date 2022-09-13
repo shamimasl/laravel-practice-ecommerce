@@ -8,6 +8,10 @@ use Illuminate\Support\Carbon;
 
 class CouponController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('admincheck');
+    }
     public function index()
     {
         return view('coupon.index', [

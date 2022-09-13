@@ -9,6 +9,10 @@ use Illuminate\Support\Carbon;
 
 class SubCategoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('admincheck');
+    }
     public function index()
     {
         $categories = Category::latest()->get();

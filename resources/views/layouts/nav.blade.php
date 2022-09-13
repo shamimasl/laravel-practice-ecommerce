@@ -15,31 +15,32 @@
                 <span class="menu-item-label">Dashboard</span>
             </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
-        <a href="{{ url('category') }}" class="sl-menu-link @yield('category')">
-            <div class="sl-menu-item">
-                <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
-                <span class="menu-item-label">Category</span>
-            </div><!-- menu-item -->
-        </a><!-- sl-menu-link -->
-        <a href="{{ url('subcategory') }}" class="sl-menu-link @yield('subcategory')">
-            <div class="sl-menu-item">
-                <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
-                <span class="menu-item-label">Sub Category</span>
-            </div><!-- menu-item -->
-        </a><!-- sl-menu-link -->
-        <a href="{{ url('product') }}" class="sl-menu-link @yield('product')">
-            <div class="sl-menu-item">
-                <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
-                <span class="menu-item-label">Product</span>
-            </div><!-- menu-item -->
-        </a><!-- sl-menu-link -->
-        <a href="{{ url('coupon') }}" class="sl-menu-link @yield('coupon')">
-            <div class="sl-menu-item">
-                <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
-                <span class="menu-item-label">Coupon</span>
-            </div><!-- menu-item -->
-        </a><!-- sl-menu-link -->
-
+        @if (Auth::user()->role == 2)
+            <a href="{{ url('category') }}" class="sl-menu-link @yield('category')">
+                <div class="sl-menu-item">
+                    <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
+                    <span class="menu-item-label">Category</span>
+                </div><!-- menu-item -->
+            </a><!-- sl-menu-link -->
+            <a href="{{ url('subcategory') }}" class="sl-menu-link @yield('subcategory')">
+                <div class="sl-menu-item">
+                    <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
+                    <span class="menu-item-label">Sub Category</span>
+                </div><!-- menu-item -->
+            </a><!-- sl-menu-link -->
+            <a href="{{ url('product') }}" class="sl-menu-link @yield('product')">
+                <div class="sl-menu-item">
+                    <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
+                    <span class="menu-item-label">Product</span>
+                </div><!-- menu-item -->
+            </a><!-- sl-menu-link -->
+            <a href="{{ url('coupon') }}" class="sl-menu-link @yield('coupon')">
+                <div class="sl-menu-item">
+                    <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
+                    <span class="menu-item-label">Coupon</span>
+                </div><!-- menu-item -->
+            </a><!-- sl-menu-link -->
+        @endif
     </div><!-- sl-sideleft-menu -->
 
     <br>
