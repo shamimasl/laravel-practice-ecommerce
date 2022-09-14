@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\City;
+use App\Models\Country;
 use App\Models\Coupon;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
@@ -73,6 +75,16 @@ class CartController extends Controller
     }
     public function checkout()
     {
-        return view('checkout');
+        $countries = Country::select('id', 'name')->get();
+        return view('checkout', compact('countries'));
+    }
+    public function getCityList(Request $request)
+    {
+        $cities = City::where('country_id', $request->country_id)->get();
+        $str_to_send = "<option value=''>-Select-</option>";
+        foreach ($cities as $city) {
+            $str_to_send .= "<option value='" . $city->id . "'>" . $city->name . "</option>";
+        }
+        echo $str_to_send;
     }
 }

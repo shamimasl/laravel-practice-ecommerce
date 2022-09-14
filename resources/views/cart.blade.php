@@ -119,6 +119,13 @@
                                     <li><span class="pull-left">Subtotal</span>
                                         {{ round($total - ($discount / 100) * $total) }}
                                     </li>
+                                    @php
+                                        session([
+                                            'total_from_cart' => $total,
+                                            'discount_from_cart' => round(($discount / 100) * $total),
+                                            'subtotal_from_cart' => round($total - ($discount / 100) * $total),
+                                        ]);
+                                    @endphp
                                 </ul>
                                 @if ($check_out_button)
                                     <a href="{{ url('checkout') }}">Proceed to Checkout</a>
