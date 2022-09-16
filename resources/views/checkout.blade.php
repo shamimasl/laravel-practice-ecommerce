@@ -99,7 +99,7 @@
                                                 class="pull-right">{{ session('subtotal_from_cart') }}</span></li>
                                     </ul>
                                     <ul class="payment-method">
-                                        <li>
+                                        {{-- <li>
                                             <input id="bank" type="radio">
                                             <label for="bank">Direct Bank Transfer</label>
 
@@ -107,9 +107,9 @@
                                             <input id="paypal" type="radio">
                                             <label for="paypal">Paypal</label>
                                         </li>
-                                        <li>
-                                            <input id="card" type="radio">
-                                            <label for="card">Credit Card</label>
+                                        <li> --}}
+                                        <input id="card" type="radio" name="online" value="2">
+                                        <label for="card">Onile</label>
                                         </li>
                                         <li>
                                             <input id="delivery" type="radio"name="cod" value="1">

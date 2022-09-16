@@ -46,7 +46,7 @@
                                     $total = 0;
                                     $check_out_button = true;
                                 @endphp
-                                @foreach ($cart_items as $cart_item)
+                                @forelse ($cart_items as $cart_item)
                                     <tr>
                                         <td class="images"><img
                                                 src="{{ asset('uploads/product_photos') }}/{{ App\Models\Product::find($cart_item->product_id)->product_photo }}"
@@ -85,7 +85,13 @@
                                         
                                         $total = $total + App\Models\Product::find($cart_item->product_id)->product_price * $cart_item->cart_amount;
                                     @endphp
-                                @endforeach
+                                @empty
+                                    <tr>
+                                        <td colspan="50">
+                                            No Product To Show
+                                        </td>
+                                    </tr>
+                                @endforelse
 
 
                         </tbody>

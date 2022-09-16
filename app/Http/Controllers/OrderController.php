@@ -18,15 +18,28 @@ class OrderController extends Controller
     public function ordercreate(Request $request)
     {
         // print_r($request->all());
-        $order_id = Order::insertGetId([
-            'user_id' => Auth::id(),
-            'total' => session('total_from_cart'),
-            'discount' => session('discount_from_cart'),
-            'sub_total' => session('subtotal_from_cart'),
-            'payment_status' => $request->cod,
-            'created_at' => Carbon::now(),
+        if ($request->cod == 1) {
+            $order_id = Order::insertGetId([
+                'user_id' => Auth::id(),
+                'total' => session('total_from_cart'),
+                'discount' => session('discount_from_cart'),
+                'sub_total' => session('subtotal_from_cart'),
+                'payment_status' => $request->cod,
+                'created_at' => Carbon::now(),
 
-        ]);
+            ]);
+        } elseif ($request->online == 2) {
+            $order_id = Order::insertGetId([
+                'user_id' => Auth::id(),
+                'total' => session('total_from_cart'),
+                'discount' => session('discount_from_cart'),
+                'sub_total' => session('subtotal_from_cart'),
+                'payment_status' => $request->online,
+                'created_at' => Carbon::now(),
+
+            ]);
+        }
+
         OrderBillingDetails::insert([
             'order_id' =>  $order_id,
             'name' => $request->name,
@@ -52,6 +65,12 @@ class OrderController extends Controller
                 'created_at' => Carbon::now(),
             ]);
         }
-        echo "done";
+        if ($request->cod == 1) {
+            Cart::where('generated_cart_id', Cookie::get('generated_cart_id'))->delete();
+            return redirect('cart');
+        } elseif ($request->online == 2) {
+            Cart::where('generated_cart_id', Cookie::get('generated_cart_id'))->delete();
+            return redirect('online/payment');
+        }
     }
 }
