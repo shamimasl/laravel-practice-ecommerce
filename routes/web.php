@@ -9,6 +9,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SslCommerzPaymentController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,11 +34,26 @@ Route::get('/', [FrontendController::class, 'index']);
 Route::get('/product/details/{id}', [FrontendController::class, 'product_details']);
 Route::get('/shop', [FrontendController::class, 'shop']);
 Route::get('/shop/category/{category_id}', [FrontendController::class, 'shop_category']);
+Route::get('/search', [FrontendController::class, 'search']);
 
 Auth::routes();
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    return redirect('/home');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('verified');
 Route::post('/user/insert', [App\Http\Controllers\HomeController::class, 'userinsert'])->name('userinsert');
+Route::get('/download/invoice/{id}', [App\Http\Controllers\HomeController::class, 'downloadinvoice']);
+Route::get('/send/invoice/{id}', [App\Http\Controllers\HomeController::class, 'sendinvoice']);
 Route::get('/category', [App\Http\Controllers\CategoryController::class, 'index']);
 Route::post('/category/insert', [App\Http\Controllers\CategoryController::class, 'insert']);
 Route::get('/category/delete/{id}', [App\Http\Controllers\CategoryController::class, 'delete']);

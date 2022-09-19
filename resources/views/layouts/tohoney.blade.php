@@ -45,8 +45,13 @@
             <div class="row">
                 <div class="col-md-8 offset-md-2 col-12">
                     <div class="search-form">
-                        <form action="#">
-                            <input type="text" placeholder="Search Here...">
+                        <form action="{{ url('search') }}" method="GET">
+                            <input type="text" placeholder="Search Here..." name="q">
+                            <select name="al">
+                                <option value="1">A-Z</option>
+                                <option value="2">Z-A</option>
+
+                            </select>
                             <button><i class="fa fa-search"></i></button>
                         </form>
                     </div>
@@ -135,7 +140,8 @@
                     </div>
                     <div class="col-md-4 col-lg-2 col-sm-5 col-4">
                         <ul class="search-cart-wrapper d-flex">
-                            <li class="search-tigger"><a href="javascript:void(0);"><i class="flaticon-search"></i></a>
+                            <li class="search-tigger"><a href="javascript:void(0);"><i
+                                        class="flaticon-search"></i></a>
                             </li>
                             <li>
                                 <a href="javascript:void(0);"><i class="flaticon-like"></i> <span>2</span></a>

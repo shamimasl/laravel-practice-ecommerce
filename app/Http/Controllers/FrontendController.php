@@ -50,4 +50,20 @@ class FrontendController extends Controller
             'all_products' => Product::where('category_id', $category_id)->get(),
         ]);
     }
+    public function search()
+    {
+        $q = $_GET['q'];
+        $al = $_GET['al'];
+        if ($al == 1) {
+            $products = Product::where('product_name', 'like', '%' . $q . '%')->orderBy('product_name', 'asc')->get();
+        } else {
+
+            $products = Product::where('product_name', 'like', '%' . $q . '%')->orderBy('product_name', 'desc')->get();
+        }
+
+        return view(
+            'search',
+            ['search_results' => $products,]
+        );
+    }
 }
