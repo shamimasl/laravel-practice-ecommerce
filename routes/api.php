@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthApiController;
 use App\Http\Controllers\CategoryApiController;
 use App\Http\Controllers\CouponApiController;
 use App\Http\Controllers\CouponController;
+use App\Http\Controllers\OrderApiController;
 use App\Http\Controllers\ProductApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -34,3 +35,4 @@ Route::get('/category/subcategory/{category_id}', [CategoryApiController::class,
 Route::get('/category/product/{category_id}', [CategoryApiController::class, 'categoryWiseProduct']);
 Route::get('/subcategory/product/{category_id}', [CategoryApiController::class, 'subCategoryWiseProduct']);
 Route::get('/coupon', [CouponApiController::class, 'getCoupon']);
+Route::get('/orders/{user_id}', [OrderApiController::class, 'getOrders']);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\PostProcessed;
 use App\Models\Category;
 use App\Models\Subcategory;
 use Illuminate\Http\Request;
@@ -26,12 +27,16 @@ class CategoryController extends Controller
         $request->validate([
             'category_name' => 'required|unique:categories,category_name'
         ]);
+        $edata = ["category_name" => $request->category_name, "added_by" => Auth::id(),];
+        event(new PostProcessed($edata));
         Category::insert([
             "category_name" => $request->category_name,
             "added_by" => Auth::id(),
             "created_at" => Carbon::now()
 
         ]);
+        // event 
+
         return back()->with('status', 'category added successfully');
     }
     public function delete($id)
