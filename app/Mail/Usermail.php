@@ -29,6 +29,6 @@ class Usermail extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->view('mail', ['$addCat' => $this->addCat]);
+        return $this->view('mail', ['addCat' => $this->addCat]);
     }
 }

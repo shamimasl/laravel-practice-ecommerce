@@ -1,12 +1,14 @@
 <?php
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\ClientMessageController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SslCommerzPaymentController;
+use App\Http\Controllers\SubscriberController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
@@ -96,3 +98,9 @@ Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
 
 Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
 //SSLCOMMERZ END
+
+Route::post('/email/subscribe', [SubscriberController::class, 'insert']);
+Route::post('/send/email', [SubscriberController::class, 'send']);
+Route::get('/newsletter', [SubscriberController::class, 'index']);
+Route::get('/client/message', [ClientMessageController::class, 'index']);
+Route::post('/message/insert', [ClientMessageController::class, 'insert']);

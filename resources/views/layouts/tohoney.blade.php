@@ -120,28 +120,21 @@
                                     <a href="javascript:void(0);">Pages <i class="fa fa-angle-down"></i></a>
                                     <ul class="dropdown_style">
                                         <li><a href="{{ url('about') }}">About Page</a></li>
-                                        <li><a href="single-product.html">Product Details</a></li>
+
                                         <li><a href="cart.html">Shopping cart</a></li>
-                                        <li><a href="checkout.html">Checkout</a></li>
+                                        <li><a href="{{ url('checkout') }}">Checkout</a></li>
                                         <li><a href="wishlist.html">Wishlist</a></li>
                                         <li><a href="faq.html">FAQ</a></li>
                                     </ul>
                                 </li>
-                                <li>
-                                    <a href="javascript:void(0);">Blog <i class="fa fa-angle-down"></i></a>
-                                    <ul class="dropdown_style">
-                                        <li><a href="blog.html">blog Page</a></li>
-                                        <li><a href="blog-details.html">blog Details</a></li>
-                                    </ul>
-                                </li>
+
                                 <li><a href="{{ url('contact') }}">Contact</a></li>
                             </ul>
                         </nav>
                     </div>
                     <div class="col-md-4 col-lg-2 col-sm-5 col-4">
                         <ul class="search-cart-wrapper d-flex">
-                            <li class="search-tigger"><a href="javascript:void(0);"><i
-                                        class="flaticon-search"></i></a>
+                            <li class="search-tigger"><a href="javascript:void(0);"><i class="flaticon-search"></i></a>
                             </li>
                             <li>
                                 <a href="javascript:void(0);"><i class="flaticon-like"></i> <span>2</span></a>
@@ -176,7 +169,7 @@
                             </li>
                             <li>
                                 <a href="javascript:void(0);"><i class="flaticon-shop"></i>
-                                    <span>{{ App\Models\Cart::count() }}</span></a>
+                                    <span>{{ App\Models\Cart::where('generated_cart_id', Cookie::get('generated_cart_id'))->count() }}</span></a>
                                 <ul class="cart-wrap dropdown_style">
                                     @php
                                         $sub_total = 0;
@@ -332,42 +325,22 @@
             <div class="row">
                 <div class="col-md-10 offset-md-1 col-12">
                     <div class="testmonial-active owl-carousel">
-                        <div class="test-items test-items2">
-                            <div class="test-content">
-                                <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a
-                                    piece of classical LatinContrary to popular belief, Lorem Ipsum is not simply random
-                                    text. It has roots in a piece of classical Latin</p>
-                                <h2>Elizabeth Ayna</h2>
-                                <p>CEO of Woman Fedaration</p>
+                        @foreach (App\Models\ClientMessage::all() as $message)
+                            <div class="test-items test-items2">
+                                <div class="test-content">
+                                    <p>{{ $message->message }}</p>
+                                    <h2>{{ $message->name }}</h2>
+                                    <p>{{ $message->designation }}</p>
+                                </div>
+                                <div class="test-img2">
+                                    <img src="{{ asset('uploads/client_photos') }}/{{ $message->image }}"
+                                        alt="">
+                                </div>
                             </div>
-                            <div class="test-img2">
-                                <img src="{{ asset('assets/images/test/1.png') }}" alt="">
-                            </div>
-                        </div>
-                        <div class="test-items test-items2">
-                            <div class="test-content">
-                                <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a
-                                    piece of classical LatinContrary to popular belief, Lorem Ipsum is not simply random
-                                    text. It has roots in a piece of classical Latin</p>
-                                <h2>Elizabeth Ayna</h2>
-                                <p>CEO of Woman Fedaration</p>
-                            </div>
-                            <div class="test-img2">
-                                <img src="{{ asset('assets/images/test/1.png') }}" alt="">
-                            </div>
-                        </div>
-                        <div class="test-items test-items2">
-                            <div class="test-content">
-                                <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a
-                                    piece of classical LatinContrary to popular belief, Lorem Ipsum is not simply random
-                                    text. It has roots in a piece of classical Latin</p>
-                                <h2>Elizabeth Ayna</h2>
-                                <p>CEO of Woman Fedaration</p>
-                            </div>
-                            <div class="test-img2">
-                                <img src="{{ asset('assets/images/test/1.png') }}" alt="">
-                            </div>
-                        </div>
+                        @endforeach
+
+
+
                     </div>
                 </div>
             </div>
@@ -381,9 +354,14 @@
                 <div class="col-lg-12">
                     <div class="newsletter text-center">
                         <h3>Subscribe Newsletter</h3>
+                        @if (session('subscribe'))
+                            <div class="alert alert-success">{{ session('subscribe') }}</div>
+                        @endif
                         <div class="newsletter-form">
-                            <form>
-                                <input type="text" class="form-control" placeholder="Enter Your Email Address...">
+                            <form action="{{ url('/email/subscribe') }}" method="POST">
+                                @csrf
+                                <input type="text"name="subscribed_email" class="form-control"
+                                    placeholder="Enter Your Email Address...">
                                 <button type="submit"><i class="fa fa-send"></i></button>
                             </form>
                         </div>
@@ -447,7 +425,7 @@
                     <div class="col-lg-3 col-md-4 col-sm-12">
                         <div class="footer-reserved">
                             <ul>
-                                <li>Copyright © 2019 Tohoney All rights reserved.</li>
+                                <li>Copyright © 2022 shamim All rights reserved.</li>
                             </ul>
                         </div>
                     </div>

@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 use App\Events\PostProcessed;
 use App\Mail\Usermail;
+use App\Models\Subscriber;
 use App\Models\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
@@ -17,7 +18,7 @@ class SendPostNotification
      *
      * @return void
      */
-    public $addCat;
+
     public function __construct()
     {
     }
@@ -30,9 +31,11 @@ class SendPostNotification
      */
     public function handle(PostProcessed $event)
     {
-        $users = User::all();
+        $users = Subscriber::all();
         foreach ($users as $user) {
-            Mail::to($user->email)->send(new Usermail($event->addCat));
+            return $user->subscribed_email;
+
+            Mail::to($user->subscribed_email)->send(new Usermail($event->addCat));
         }
     }
 }

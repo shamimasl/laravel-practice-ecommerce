@@ -40,6 +40,18 @@
                     <span class="menu-item-label">Coupon</span>
                 </div><!-- menu-item -->
             </a><!-- sl-menu-link -->
+            <a href="{{ url('newsletter') }}" class="sl-menu-link @yield('newsletter')">
+                <div class="sl-menu-item">
+                    <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
+                    <span class="menu-item-label">Newsletter</span>
+                </div><!-- menu-item -->
+            </a><!-- sl-menu-link -->
+            <a href="{{ url('client/message') }}" class="sl-menu-link @yield('message')">
+                <div class="sl-menu-item">
+                    <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
+                    <span class="menu-item-label">Client Message</span>
+                </div><!-- menu-item -->
+            </a><!-- sl-menu-link -->
         @endif
     </div><!-- sl-sideleft-menu -->
 

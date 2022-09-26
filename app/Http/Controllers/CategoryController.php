@@ -27,8 +27,8 @@ class CategoryController extends Controller
         $request->validate([
             'category_name' => 'required|unique:categories,category_name'
         ]);
-        $edata = ["category_name" => $request->category_name, "added_by" => Auth::id(),];
-        event(new PostProcessed($edata));
+        // $edata =  $request->category_name;
+        // event(new PostProcessed($edata));
         Category::insert([
             "category_name" => $request->category_name,
             "added_by" => Auth::id(),
