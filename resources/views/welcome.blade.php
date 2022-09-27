@@ -16,7 +16,7 @@
                                             <h2 data-swiper-parallax="-500">Amazing Pure Nature Hohey</h2>
                                             <p data-swiper-parallax="-400">Contrary to popular belief, Lorem Ipsum is
                                                 not simply random text. It has roots in a piece of classical Latin</p>
-                                            <a href="shop.html" data-swiper-parallax="-300">Shop Now</a>
+                                            <a href="{{ url('shop') }}" data-swiper-parallax="-300">Shop Now</a>
                                         </div>
                                     </div>
                                 </div>
@@ -122,7 +122,7 @@
     </div>
     <!-- featured-area end -->
     <!-- start count-down-section -->
-    <div class="count-down-area count-down-area-sub">
+    {{-- <div class="count-down-area count-down-area-sub">
         <section class="count-down-section section-padding parallax" data-speed="7">
             <div class="container">
                 <div class="row">
@@ -141,7 +141,7 @@
             </div>
             <!-- end container -->
         </section>
-    </div>
+    </div> --}}
     <!-- end count-down-section -->
     <!-- product-area start -->
     <div class="product-area product-area-2">

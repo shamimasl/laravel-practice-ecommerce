@@ -52,6 +52,12 @@
                     <span class="menu-item-label">Client Message</span>
                 </div><!-- menu-item -->
             </a><!-- sl-menu-link -->
+            <a href="{{ url('footer/info') }}" class="sl-menu-link @yield('info')">
+                <div class="sl-menu-item">
+                    <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
+                    <span class="menu-item-label">Footer Info</span>
+                </div><!-- menu-item -->
+            </a><!-- sl-menu-link -->
         @endif
     </div><!-- sl-sideleft-menu -->
 

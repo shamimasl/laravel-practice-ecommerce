@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Info;
+use App\Models\Message;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -30,7 +32,10 @@ class FrontendController extends Controller
     }
     public function contact()
     {
-        return view('contact');
+        $info = Info::first();
+        return view('contact', [
+            'info' => $info,
+        ]);
     }
     public function protfolio()
     {
@@ -65,5 +70,22 @@ class FrontendController extends Controller
             'search',
             ['search_results' => $products,]
         );
+    }
+    public function sendMessage(Request $request)
+    {
+        $request->validate([
+            "name" => 'required',
+            "email" => "required",
+            "subject" => 'required',
+            "message" => 'required'
+        ]);
+        Message::insert([
+            "name" => $request->name,
+            "email" => $request->email,
+            "subject" => $request->subject,
+            "message" => $request->message,
+        ]);
+
+        return back()->with('status', 'Message send successfully');
     }
 }
